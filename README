@@ -1,0 +1,21 @@
+- Created a two folder backend, frontend;
+run command in backend  
+=>   > npm init -y
+in backend/   =>     
+> npm i express mongoose nodemon jsonwebtoken bcryptjs cookie-parser cors dotenv
+update the package.json with type='module' 
+
+update in package.json where  "start" => "some default script"
+
+
+git init
+added the git ignore file
+in .gitignore >  backend/node_modules
+> frontend/node_modules
+
+- set up mongodb atlas database
+username: 308vijaykumar
+password: ThkVzrFcdOrPaxA0
+
+URI String: mongodb+srv://308vijaykumar:ThkVzrFcdOrPaxA0@cluster0.e5fci.mongodb.net/
+
