@@ -4,7 +4,21 @@ import jwt from "jsonwebtoken";
 import getDataUri from "../utlis/datauri.js";
 import cloudinary from "../utlis/cloudinary.js";
 
+export const testRoute = async(req, res) => {
+    try {
+        console.log('working');
+        res.status(201).json({
+            success:true,
+            message:"route working..."
+        })
+    }
+    catch(err) {
+        console.log('err:', err);
+    }
+}
+
 export const register = async(req, res) => {
+    console.log('register call');
     try {
         const {username, email, password} = req.body;
 
@@ -15,11 +29,12 @@ export const register = async(req, res) => {
             });
         }
 
-        const user = User.findOne({$or:[{email}, {username}]});
+        const user = await User.findOne({$or:[{email}, {username}]});
+
         if(user) {
             return res.status(401).json({
                 message: "username or email already exist",
-                success: false
+                success: false,
             })
         }
 
@@ -135,11 +150,11 @@ export const editProfile = async(req, res) => {
         let couldResponse;
         if(profilePicture)  {
             const fileUri = getDataUri(profilePicture);
-            couldResponse = await cloudinary.upload(fileUri);
+            couldResponse = await cloudinary.uploader.upload(fileUri);
         }
 
-        const user = await User.findById({userId});
-        if(user) {
+        const user = await User.findById({_id:userId});
+        if(!user) {
             return res.status(401).json({
                 message:'User not found',
                 success: true
