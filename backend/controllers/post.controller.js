@@ -1,5 +1,5 @@
 import sharp from "sharp";
-import cloudinary from "../utlis/cloudinary";
+import cloudinary from "../utlis/cloudinary.js";
 import {Post} from "../models/post.model.js";
 import User from "../models/user.model.js";
 
@@ -65,7 +65,7 @@ export const getAllPost = async(req, res) => {
     }
 }
 
-const getUserPost = async(req, res) => {
+export const getUserPost = async(req, res) => {
     try {
         const authorId = req.id;
         const posts = await Post.find({author:authorId})
