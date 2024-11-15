@@ -153,7 +153,7 @@ export const editProfile = async(req, res) => {
             couldResponse = await cloudinary.uploader.upload(fileUri);
         }
 
-        const user = await User.findById({_id:userId});
+        const user = await User.findById({_id:userId}).select("-password");
         if(!user) {
             return res.status(401).json({
                 message:'User not found',
