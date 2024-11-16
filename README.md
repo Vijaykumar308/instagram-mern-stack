@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 - Created a two folder backend, frontend;
 run command in backend  
 =>   > npm init -y
@@ -12,3 +13,6 @@ git init
 added the git ignore file
 in .gitignore >  backend/node_modules
 > frontend/node_modules
+=======
+# instagram-mern-stack
+>>>>>>> main
