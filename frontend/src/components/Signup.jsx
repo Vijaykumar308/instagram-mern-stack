@@ -8,6 +8,9 @@ function Signup() {
     const [input, setInput] = useState({
         username:'', email:'', password:''
     });
+
+    const [loading, setLoading] = useState(false);
+
     const changeEventHandler = (e) => {
         setInput({...input, [e.target.name]:e.target.value});
     }
@@ -16,6 +19,7 @@ function Signup() {
         e.preventDefault();
         console.log(input);
         try {
+            setLoading(true);
             const res = await axios.post("http://localhost:5000/api/v1/user/register", input, {
                 headers:{
                     'Content-Type':'application/json'
@@ -25,11 +29,17 @@ function Signup() {
 
             if(res.data.success) {
                 toast.success(res.data.message);
+                setInput({
+                    username:'', email:'', password:''
+                })
             }
 
         } catch (error) {
             console.log(error);
             toast.error(error.response.data.message);
+        }
+        finally {
+            setLoading(false);
         }
     }
 
@@ -70,7 +80,7 @@ function Signup() {
                         className="focus-visible:ring-transparent my-2"
                     />
                 </div>
-                <Button>Signup</Button>
+                <Button type='submit'>Signup</Button>
                 {/* {
                     loading ? (
                         <Button>
@@ -80,7 +90,7 @@ function Signup() {
                     ) : (
                         <Button type='submit'>Signup</Button>
                     )
-                } */}
+                }  */}
                 {/* <span className='text-center'>Already have an account? <Link to="/login" className='text-blue-600'>Login</Link></span> */}
             </form>
         </div>
