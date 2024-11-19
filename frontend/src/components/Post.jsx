@@ -20,7 +20,6 @@ import CommentDialog from "./CommentDialog";
 function Post(post) {
     const [text, setText] = useState("");
     const [open, setOpen] = useState(false);
-    console.log('open', open);
     const changeEventHandler = (e) => {
         const inputText = e.target.value;
         if(inputText.trim()) {
@@ -82,7 +81,7 @@ function Post(post) {
           <div className="flex justify-between gap-3">
             <FaRegHeart size={"22px"} />
             {/* <Heart /> */}
-            <MessageCircle onClick={() => {console.log('clicked..');setOpen(true)}} className="cursor-pointer hover:text-gray-600" />
+            <MessageCircle onClick={() => {setOpen(true)}} className="cursor-pointer hover:text-gray-600" />
             <Send className="cursor-pointer hover:text-gray-600" />
           </div>
           <Bookmark className="cursor-pointer hover:text-gray-600" />
@@ -92,7 +91,7 @@ function Post(post) {
           <span className="font-medium mr-2">username</span>
           caption
         </p>
-        <span onClick={() => setOpen(true)}>View all 10 comments</span>
+        <span onClick={() => setOpen(true)} className='cursor-pointer text-sm text-gray-400'>View all 10 comments</span>
         <CommentDialog open={open} setOpen={setOpen} />
         <div className="flex items-center justify-between">
           <input
