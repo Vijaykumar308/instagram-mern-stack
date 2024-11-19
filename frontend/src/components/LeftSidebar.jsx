@@ -41,22 +41,22 @@ function LeftSidebar() {
   }
 
   const sidebarHandler = (textType) => {
-    console.log(textType);
     if(textType === "Logout") logoutHandler();
+
   }
 
 
   return (
     <div className='fixed top-0 z-10 left-0 px-4 border-r border-gray-300 w-[16%] h-screen'>
       <div className='flex flex-col'> 
-        <h1> LOGO </h1>
+        <h1 className='my-8 pl-3 font-bold text-xl'> LOGO </h1>
       {
         sidebarItems.map((item, index) => {
           return (
             <div key={index} onClick={() => sidebarHandler(item.text)} className='flex items-center gap-3 relative hover:bg-gray-100 cursor-pointer rounded-lg p-3 my-3'>
-                {item.icon}
-                <span>{item.text}</span>
-              </div>
+              {item.icon}
+              <span>{item.text}</span>
+            </div>
           )
         })
       }
