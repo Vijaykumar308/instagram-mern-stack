@@ -1,37 +1,24 @@
+import { setAuthUser } from '@/redux/authSlice';
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 import axios from 'axios';
 import { Heart, Home, LogOut, MessageCircle, PlusSquare, Search, TrendingUp } from 'lucide-react';
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
 
 
-const sidebarItems = [
-  {icon: <Home />, text:"Home" },
-  {icon: <Search />, text:"Search" },
-  {icon: <TrendingUp />, text:"Explore" },
-  {icon: <MessageCircle />, text:"Message" },
-  {icon: <Heart />, text:"Notification" },
-  {icon: ( 
-          <Avatar className='w-7 h-6'>
-            <AvatarImage className='rounded-[50%]' src="https://github.com/shadcn.png" alt="@shadcn" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-         ), 
-        text:"Profile"
- },
-  {icon: <LogOut />, text:"Logout" },
-]
-
 function LeftSidebar() {
   const navigate = useNavigate();
-
+  const user = useSelector(store => store.auth.user);
+  const dispatch = useDispatch();
   const logoutHandler = async () => {
     try {
       const res = await axios.get(`http://localhost:5000/api/v1/user/logout`, {withCredentials:true});
       console.log(res);
       if(res.data.success) {
+        dispatch(setAuthUser(null));
         navigate("/login");
         toast.success(res.data.message);
       }
@@ -42,8 +29,24 @@ function LeftSidebar() {
 
   const sidebarHandler = (textType) => {
     if(textType === "Logout") logoutHandler();
-
   }
+
+  const sidebarItems = [
+    {icon: <Home />, text:"Home" },
+    {icon: <Search />, text:"Search" },
+    {icon: <TrendingUp />, text:"Explore" },
+    {icon: <MessageCircle />, text:"Message" },
+    {icon: <Heart />, text:"Notification" },
+    {icon: ( 
+            <Avatar className='w-7 h-7'>
+              <AvatarImage className='rounded-[50%]' src={user?.profilePicture} alt="@shadcn" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+           ), 
+          text:"Profile"
+   },
+    {icon: <LogOut />, text:"Logout" },
+  ]
 
 
   return (

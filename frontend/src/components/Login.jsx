@@ -5,6 +5,8 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setAuthUser } from '@/redux/authSlice';
 
 function Login() { 
     const [input, setInput] = useState({
@@ -13,6 +15,7 @@ function Login() {
 
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const changeEventHandler = (e) => {
         setInput({...input, [e.target.name]:e.target.value});
     }
@@ -31,6 +34,7 @@ function Login() {
 
             if(res.data.success) {
                 navigate("/");
+                dispatch(setAuthUser(res.data.user));
                 toast.success(res.data.message);
                 setInput({
                     email:'', password:''
